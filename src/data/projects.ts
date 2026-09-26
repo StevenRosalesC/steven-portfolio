@@ -45,7 +45,31 @@ export const projects: Project[] = [
       en: "Artisanal Workshop · Colonche, Santa Elena",
     },
   },
-
+  {
+    id: "steven-portfolio",
+    title: {
+      es: "Steven Rosales Portfolio & HUD",
+      en: "Steven Rosales Portfolio & HUD",
+    },
+    description: {
+      es: "Portafolio de ingeniería de software con estética Bento Grid ciber-minimalista, terminal interactiva HUD, telemetría de GitHub en tiempo real vía API Routes y arquitectura bilingüe de alto rendimiento.",
+      en: "Cyber-minimalist software engineering portfolio with Bento Grid aesthetics, interactive terminal HUD, live GitHub telemetry via API Routes, and high-performance bilingual i18n.",
+    },
+    category: "Full Stack",
+    tags: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "Turbopack", "GitHub API"],
+    language: "TypeScript",
+    languageColor: "bg-blue-400",
+    stars: 0,
+    forks: 0,
+    featured: true,
+    isPrivate: false,
+    githubUrl: "https://github.com/StevenRosalesC/steven-portfolio",
+    liveUrl: "https://stevenrocaiche.space",
+    stats: {
+      es: "Desplegado en stevenrocaiche.space",
+      en: "Deployed on stevenrocaiche.space",
+    },
+  },
   {
     id: "app-comuna-next",
     title: "App Comuna Next",
@@ -59,7 +83,7 @@ export const projects: Project[] = [
     languageColor: "bg-blue-400",
     stars: 1,
     forks: 0,
-    featured: true,
+    featured: false,
     isPrivate: false,
     githubUrl: "https://github.com/StevenRosalesC/app-comuna-next",
     stats: {
