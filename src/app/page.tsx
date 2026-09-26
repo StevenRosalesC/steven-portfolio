@@ -4,7 +4,7 @@ import { HeroBento } from "@/components/HeroBento";
 import { StatsBento } from "@/components/StatsBento";
 import { TechStackBento } from "@/components/TechStackBento";
 import { ProjectsBento } from "@/components/ProjectsBento";
-import { ExperienceBento } from "@/components/ExperienceBento";
+// import { ExperienceBento } from "@/components/ExperienceBento";
 import { GithubHeatmapBento } from "@/components/GithubHeatmapBento";
 // import { TestimonialsBento } from "@/components/TestimonialsBento";
 // import { WritingBento } from "@/components/WritingBento";
@@ -38,7 +38,7 @@ export default function Home() {
           <StatsBento />
           <TechStackBento />
           <ProjectsBento />
-          <ExperienceBento />
+          {/*<ExperienceBento />*/}
           <GithubHeatmapBento />
           {/*<TestimonialsBento />*/}
           {/*<WritingBento />*/}
