@@ -1,0 +1,26 @@
+# Steven Rosales - Full Stack Developer & Software Architect
+> Fast, scalable, and resilient web applications end-to-end — from robust backend database architectures to pixel-perfect, futuristic user interfaces.
+
+## Profile Summary
+- **Name:** Steven Rosales
+- **Role:** Full Stack Developer & Software Architect
+- **Location:** Santa Elena, Ecuador (Timezone: America/Guayaquil, UTC-5)
+- **Email:** stevenrosales31@gmail.com
+- **GitHub:** https://github.com/StevenRosalesC
+- **LinkedIn:** https://www.linkedin.com/in/steven-rosales-dev/
+- **Portfolio:** https://steven-portfolio.vercel.app
+
+## Core Competencies & Technologies
+- **Languages:** TypeScript, JavaScript, SQL, Python, PHP, HTML5, CSS3
+- **Frontend & UI:** Next.js (App Router, Server Components, Turbopack), React 19, Tailwind CSS v4, shadcn/ui, Framer Motion
+- **Backend & APIs:** Node.js, NestJS, Express.js, Payload CMS 3.0, REST APIs, Microservices, Webhooks
+- **Databases & ORM:** PostgreSQL, MongoDB, Redis, Prisma, Drizzle ORM
+- **DevOps & Infrastructure:** Docker, Git & GitHub Actions CI/CD, Linux Server Administration, Vercel
+
+## Featured Projects
+- **Bambil Shoes Store:** E-commerce & artisanal workshop management platform built with Next.js 16, Payload CMS 3.0, React 19, PostgreSQL 17, Tailwind CSS v4, and automated Resend transactional email workflows.
+- **Steven Rosales Portfolio:** Futuristic cyberpunk bento grid portfolio featuring live GitHub API telemetry, interactive terminal HUD, and bilingual internationalization (ES/EN).
+
+## Availability
+- Open to high-impact roles, software architecture contracts, and engineering collaborations.
+- For detailed technical briefings, see [/llms-full.txt](https://steven-portfolio.vercel.app/llms-full.txt).

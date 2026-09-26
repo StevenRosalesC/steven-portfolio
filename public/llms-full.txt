@@ -1,0 +1,71 @@
+# Steven Rosales - Full Technical Dossier for AI Agents & Search Engines
+
+## 1. Overview
+Steven Rosales is an experienced Full Stack Developer and Software Architect based in Santa Elena, Ecuador. He specializes in designing resilient, high-concurrency web systems with modern TypeScript stacks (Next.js 16, React 19, NestJS, Node.js) and robust database foundations (PostgreSQL, Redis).
+
+- **Canonical URL:** https://steven-portfolio.vercel.app
+- **Repository:** https://github.com/StevenRosalesC/steven-portfolio
+- **GitHub Profile:** https://github.com/StevenRosalesC
+- **LinkedIn:** https://www.linkedin.com/in/steven-rosales-dev/
+- **Contact Email:** stevenrosales31@gmail.com
+- **Languages Spoken:** Spanish (Native), English (Professional Working Proficiency)
+
+---
+
+## 2. Technical Stack & Architecture Expertise
+
+### Languages & Foundations
+- **TypeScript & JavaScript (ESNext):** Strong typing, generics, functional and object-oriented paradigms, asynchronous programming, event loop optimization.
+- **SQL & Data Modeling:** Relational modeling, normalization, indexing strategies, query execution analysis (EXPLAIN ANALYZE), migrations.
+- **Python & PHP:** Scripting, backend microservices, automation, and legacy integrations.
+
+### Frontend Engineering
+- **Frameworks:** Next.js (App Router, Server Actions, React Server Components, Streaming SSR, Turbopack), React 19.
+- **Styling & Design Systems:** Tailwind CSS (v4), shadcn/ui, Radix UI primitives, responsive mobile-first layouts, dark mode token systems.
+- **State Management & Data Fetching:** Zustand, React Query / TanStack Query, optimistic UI updates, SWR.
+
+### Backend & Cloud Architecture
+- **Frameworks:** NestJS (modular architecture, dependency injection, guards, interceptors), Node.js (Express, Fastify), Payload CMS 3.0.
+- **Databases:** PostgreSQL, MongoDB, Redis (caching, pub/sub, rate limiting).
+- **APIs & Protocols:** RESTful API design, OpenAPI/Swagger specifications, WebSockets, Webhooks, WhatsApp Business Cloud API.
+- **Authentication & Security:** JWT, OAuth2, session management, RBAC, input sanitization, rate limiting.
+
+### DevOps & Tooling
+- **Containers:** Docker, Docker Compose, multi-stage builds.
+- **CI/CD & Cloud:** GitHub Actions, Vercel, Railway, Supabase.
+- **Version Control:** Git, semantic commit conventions, branching strategies.
+
+---
+
+## 3. Notable Implementations & Projects
+
+### Bambil Shoes Store (E-Commerce Platform & Workshop Management)
+- **Role:** Lead Architect & Full Stack Engineer
+- **Stack:** Next.js 16, Payload CMS 3.0, React 19, PostgreSQL 17, Tailwind CSS v4, TypeScript, Zustand, Resend API.
+- **Key Features:**
+  - On-demand custom shoe fabrication order workflow.
+  - Public real-time order tracking portal (`/tracking`) with state machines.
+  - Hybrid checkout via automated WhatsApp integration and direct banking notifications.
+  - Automated transactional notifications powered by Resend.
+  - Multi-role admin CMS for workshop artisans, inventory, materials, and dispatch tracking.
+
+### Steven Rosales Portfolio & HUD
+- **Role:** Creator & Software Engineer
+- **Stack:** Next.js 16, React 19, TypeScript, Tailwind CSS, Turbopack, GitHub REST API.
+- **Key Features:**
+  - Bento Grid layout with interactive terminal HUD.
+  - Live GitHub telemetry and commit heatmap via server-side cached API route.
+  - Complete internationalization (i18n) supporting Spanish and English with zero hydration mismatch.
+  - 100% Core Web Vitals compliance, INP optimization, and Schema.org JSON-LD graph.
+
+---
+
+## 4. Verification & Structured Data
+The portfolio includes complete Schema.org JSON-LD metadata for:
+- `Person` (Steven Rosales)
+- `WebSite` (Steven Rosales Portfolio)
+- `ProfilePage`
+- `ItemList` (Featured Projects)
+- Dynamic Open Graph 1200x630 cards at `/opengraph-image`
+- XML Sitemap at `/sitemap.xml`
+- Robots Exclusion Standard at `/robots.txt`
