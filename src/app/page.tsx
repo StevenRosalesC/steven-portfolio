@@ -6,8 +6,8 @@ import { TechStackBento } from "@/components/TechStackBento";
 import { ProjectsBento } from "@/components/ProjectsBento";
 import { ExperienceBento } from "@/components/ExperienceBento";
 import { GithubHeatmapBento } from "@/components/GithubHeatmapBento";
-import { TestimonialsBento } from "@/components/TestimonialsBento";
-import { WritingBento } from "@/components/WritingBento";
+// import { TestimonialsBento } from "@/components/TestimonialsBento";
+// import { WritingBento } from "@/components/WritingBento";
 import { ContactBento } from "@/components/ContactBento";
 import { Footer } from "@/components/Footer";
 
@@ -40,8 +40,8 @@ export default function Home() {
           <ProjectsBento />
           <ExperienceBento />
           <GithubHeatmapBento />
-          <TestimonialsBento />
-          <WritingBento />
+          {/*<TestimonialsBento />*/}
+          {/*<WritingBento />*/}
           <ContactBento />
         </main>
 
