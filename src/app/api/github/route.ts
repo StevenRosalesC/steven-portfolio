@@ -51,8 +51,8 @@ export async function GET() {
     let totalReposCount = 0;
 
     const reposUrl = token
-      ? "https://api.github.com/user/repos?affiliation=owner&sort=pushed&per_page=30&visibility=all"
-      : `https://api.github.com/users/${username}/repos?sort=pushed&per_page=12`;
+      ? "https://api.github.com/user/repos?affiliation=owner&sort=pushed&per_page=100&visibility=all"
+      : `https://api.github.com/users/${username}/repos?sort=pushed&per_page=100`;
 
     const reposRes = await fetch(reposUrl, {
       next: { revalidate: 600 },
@@ -203,9 +203,9 @@ export async function GET() {
       username,
       hasToken: Boolean(token),
       metrics: {
-        totalRepos: totalReposCount || 49,
-        privateRepos: privateReposCount || 37,
-        publicRepos: publicReposCount || 12,
+        totalRepos: totalReposCount > 0 ? totalReposCount : 23,
+        privateRepos: totalReposCount > 0 ? privateReposCount : 11,
+        publicRepos: totalReposCount > 0 ? publicReposCount : 12,
         totalContributions,
       },
       contributions,

@@ -40,12 +40,14 @@ export function StatsBento() {
     },
     {
       label: dict.stats.totalRepos,
-      value: metrics ? `${metrics.totalRepos}` : "49",
+      value: metrics ? `${metrics.totalRepos}` : "23",
       sub: metrics
         ? language === "es"
           ? `${metrics.privateRepos} Privados · ${metrics.publicRepos} Públicos`
           : `${metrics.privateRepos} Private · ${metrics.publicRepos} Public`
-        : dict.stats.reposDesc,
+        : language === "es"
+          ? "11 Privados · 12 Públicos"
+          : "11 Private · 12 Public",
       icon: Layers,
       accent: "cyan" as const,
       badge: "METRIC_02",
