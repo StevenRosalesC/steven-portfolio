@@ -6,7 +6,11 @@ interface JsonLdProps {
 }
 
 export function JsonLd({
-  siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://steven-portfolio.vercel.app",
+  siteUrl = (
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.stevenrocaiche.space"
+  )
+    .trim()
+    .replace(/\/+$/, ""),
 }: JsonLdProps) {
   const schema = {
     "@context": "https://schema.org",

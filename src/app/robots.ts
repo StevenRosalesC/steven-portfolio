@@ -1,8 +1,13 @@
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-dynamic";
+
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://steven-portfolio.vercel.app";
+  const siteUrl = (
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.stevenrocaiche.space"
+  )
+    .trim()
+    .replace(/\/+$/, "");
 
   return {
     rules: [
@@ -26,6 +31,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

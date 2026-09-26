@@ -14,8 +14,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://steven-portfolio.vercel.app";
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.stevenrocaiche.space"
+)
+  .trim()
+  .replace(/\/+$/, "");
 
 export const viewport: Viewport = {
   themeColor: "#08090d",
