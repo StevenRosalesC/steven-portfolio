@@ -79,6 +79,8 @@ export const en: Translations = {
     sectionBadge: "CHRONOLOGY // CAREER",
     title: "Work Experience",
     present: "Present",
+    subtitle: "Commercial & Engineering Track",
+    logText: "$ cat ./experience.log: History of engineering high-impact production apps.",
   },
   activity: {
     sectionNum: "05.",

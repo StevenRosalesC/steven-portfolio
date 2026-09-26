@@ -79,6 +79,8 @@ export const es: Translations = {
     sectionBadge: "CRONOLOGÍA // TRAYECTORIA",
     title: "Experiencia Profesional",
     present: "Presente",
+    subtitle: "Trayectoria de Ingeniería & Soluciones",
+    logText: "$ cat ./experiencia.log: Historial de soluciones de software de alto impacto en producción.",
   },
   activity: {
     sectionNum: "05.",

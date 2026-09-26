@@ -26,21 +26,21 @@ export function ExperienceBento() {
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
             <span>{dict.experience.title}</span>
             <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 font-normal">
-              Commercial &amp; Engineering Track
+              {dict.experience.subtitle}
             </span>
           </h2>
         </div>
 
         <p className="text-xs sm:text-sm text-zinc-400 max-w-md font-mono">
-          $ cat ./experience.log: History of engineering high-impact production apps.
+          {dict.experience.logText}
         </p>
       </div>
 
       {/* Experience Bento Card */}
       <SpotlightCard glowColor="violet" className="p-6 sm:p-8">
         <div className="relative pl-6 sm:pl-8 space-y-8 before:absolute before:left-[11px] before:top-3 before:bottom-3 before:w-[2px] before:bg-gradient-to-b before:from-violet-500 before:via-cyan-500 before:to-emerald-500/30">
-          {portfolioData.experience.map((exp) => (
-            <div key={exp.company} className="relative group">
+          {portfolioData.experience.map((exp, index) => (
+            <div key={exp.id || `${exp.company}-${index}`} className="relative group">
               {/* Glowing Node Dot */}
               <div
                 className={`absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full border-2 transition-all ${
@@ -64,9 +64,21 @@ export function ExperienceBento() {
                 </div>
               </div>
 
-              <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed mb-4 max-w-3xl">
+              <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed mb-3 max-w-3xl">
                 {getBilingual(exp.description)}
               </p>
+
+              {/* Architectural Highlights / Solutions */}
+              {exp.highlights && exp.highlights.length > 0 && (
+                <ul className="mb-4 space-y-2 text-xs sm:text-sm text-zinc-300 font-mono">
+                  {exp.highlights.map((highlight, hIdx) => (
+                    <li key={hIdx} className="flex items-start gap-2.5">
+                      <span className="text-violet-400 select-none text-xs mt-0.5">▹</span>
+                      <span className="leading-relaxed text-zinc-300/90">{getBilingual(highlight)}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
 
               {/* Technologies */}
               <div className="flex flex-wrap gap-1.5">

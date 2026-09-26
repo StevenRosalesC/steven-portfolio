@@ -79,6 +79,8 @@ export interface Translations {
     sectionBadge: string;
     title: string;
     present: string;
+    subtitle: string;
+    logText: string;
   };
   activity: {
     sectionNum: string;

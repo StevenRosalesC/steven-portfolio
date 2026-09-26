@@ -3,12 +3,14 @@ export type { Project };
 export { projects };
 
 export interface Experience {
+  id?: string;
   period: string | { es: string; en: string };
   role: string | { es: string; en: string };
   company: string;
   description: string | { es: string; en: string };
   technologies: string[];
   current?: boolean;
+  highlights?: (string | { es: string; en: string })[];
 }
 
 export interface Testimonial {
@@ -37,9 +39,10 @@ export const portfolioData = {
     bio: "I build fast, scalable, and resilient web applications end to end — from robust backend database architectures to pixel-perfect, futuristic user interfaces.",
     location: "Santa Elena, Ecuador",
     timezone: "America/Guayaquil",
-    email: "stevenrosales.dev@gmail.com",
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "stevenrosales.dev@gmail.com",
     github: "https://github.com/StevenRosalesC",
     linkedin: "https://linkedin.com/in/stevenrosalesc",
+    cvUrl: process.env.NEXT_PUBLIC_CV_URL || "https://drive.google.com/file/d/120HUgq8Iu5_Ku5tOplqrzQibJa5CT3Wv/view?usp=sharing",
     stats: [
       { label: "Years Experience", value: "3+" },
       { label: "Projects Shipped", value: "15+" },
@@ -118,48 +121,75 @@ export const portfolioData = {
 
   experience: [
     {
+      id: "kickersoft-lead",
       period: {
-        es: "Ene 2024 — Presente",
-        en: "Jan 2024 — Present",
+        es: "Ene 2025 — Presente",
+        en: "Jan 2025 — Present",
       },
       role: {
-        es: "Ingeniero Full Stack Senior",
-        en: "Senior Full Stack Engineer",
+        es: "Ingeniero Full Stack Senior & Móvil",
+        en: "Senior Full Stack & Mobile Engineer",
       },
-      company: "Independent & Client Solutions",
+      company: "Kickersoft SAS",
       description: {
-        es: "Arquitectura y despliegue de plataformas web de nivel empresarial, liderando optimizaciones de rendimiento frontend y construyendo APIs RESTful y microservicios escalables.",
-        en: "Architecting and shipping production-ready web platforms, leading frontend performance optimizations, and building RESTful APIs with microservices.",
+        es: "Liderazgo técnico en la arquitectura y entrega de plataformas web y móviles de alto impacto. Diseño de aplicaciones móviles en producción con React Native y Expo, portales de alto tráfico con SEO dinámico a gran escala vía Headless CMS, plataformas de ticketing y facturación B2B con Laravel/Filament, y orquestación de sistemas de pruebas QA.",
+        en: "Technical leadership in the architecture and delivery of high-impact web and mobile platforms. Built production mobile apps with React Native & Expo, architected large-scale dynamic SEO portals with Headless CMS, engineered B2B ticketing and financial systems with Laravel Filament, and designed QA testing dashboards.",
       },
-      technologies: ["Next.js", "TypeScript", "NestJS", "PostgreSQL", "Docker"],
+      highlights: [
+        {
+          es: "App Móvil de Suscripciones: Arquitectura en React Native (Expo) con Stripe Mobile, caché offline-first con SWR y resolución de invalidación de caché en iOS.",
+          en: "Mobile Subscription App: React Native (Expo) architecture with Stripe Mobile SDK, offline-first SWR caching, and iOS cache invalidation fixes.",
+        },
+        {
+          es: "Portal Inmobiliario & SEO Dinámico: Generación automatizada de sitemaps XML y metadatos Open Graph a escala para miles de propiedades conectadas a Headless CMS.",
+          en: "Real Estate Portal & Dynamic SEO: Automated large-scale XML sitemaps and Open Graph metadata for thousands of listings integrated with Headless CMS.",
+        },
+        {
+          es: "Plataforma B2B de Eventos y Facturación: Frontend dinámico en Next.js integrado con panel administrativo en Laravel Filament, cálculo de balances, pagos parciales y exportación PDF.",
+          en: "B2B Events & Invoicing Platform: Dynamic Next.js frontend integrated with Laravel Filament admin panel, handling balance calculations, partial payments, and PDF invoicing.",
+        },
+        {
+          es: "Dashboard de QA y Testing: Panel de control reactivo para gestión de sesiones de prueba con tipado estricto de rutas y filtrado reactivo de alta velocidad.",
+          en: "QA & Testing Dashboard: Reactive management dashboard for testing sessions with strict route typing and high-speed reactive filtering.",
+        },
+      ],
+      technologies: ["Next.js", "React Native", "Expo", "TypeScript", "Laravel", "Filament", "Stripe API", "PostgreSQL", "Tailwind CSS"],
       current: true,
     },
     {
-      period: "2023 — 2024",
+      id: "kickersoft-fullstack",
+      period: {
+        es: "Ene 2024 — Dic 2024",
+        en: "Jan 2024 — Dec 2024",
+      },
       role: {
         es: "Desarrollador Full Stack",
         en: "Full Stack Developer",
       },
-      company: "Digital Commerce & SaaS",
+      company: "Kickersoft SAS",
       description: {
-        es: "Diseño e implementación de sistemas de comercio electrónico escalables, esquemas de bases de datos relacionales e integración de pasarelas de pago con alta confiabilidad y cero tiempo de inactividad.",
-        en: "Engineered scalable e-commerce systems, database schemas, and integrated payment gateways with high reliability and zero downtime.",
+        es: "Diseño y construcción de microservicios backend, pipelines de ingesta masiva de catálogos de retail, widgets transaccionales embebibles y pasarelas de pago recurrentes.",
+        en: "Designed and built backend microservices, high-volume retail catalogue ingestion pipelines, embeddable transactional widgets, and recurring billing architectures.",
       },
-      technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
-      current: false,
-    },
-    {
-      period: "2022 — 2023",
-      role: {
-        es: "Ingeniero Frontend",
-        en: "Frontend Engineer",
-      },
-      company: "Creative Web Studio",
-      description: {
-        es: "Creación de interfaces accesibles, fluidas y responsivas, convirtiendo diseños complejos de Figma en código interactivo de nivel de producción.",
-        en: "Crafted accessible, responsive interfaces and design systems, converting Figma mockups into production-grade interactive code.",
-      },
-      technologies: ["JavaScript", "React", "CSS3", "Git"],
+      highlights: [
+        {
+          es: "Motor Comparador de Precios: Arquitectura en NestJS y MongoDB con DTOs estrictos, middlewares de integridad y pipelines de seeding masivo de productos.",
+          en: "Price Comparison Engine: NestJS and MongoDB architecture with strict DTO validation, persistence integrity middlewares, and mass data ingestion pipelines.",
+        },
+        {
+          es: "Arquitectura de Suscripciones y Pagos: Integración integral de Stripe Billing con webhooks idempotentes, gestión del ciclo de cobro y sincronización en tiempo real.",
+          en: "Subscription & Payments Architecture: Stripe Billing integration with idempotent webhook handlers, charge lifecycle tracking, and real-time database sync.",
+        },
+        {
+          es: "Widget Embebible de Reservas: Motor de disponibilidad y reserva en tiempo real con Next.js/React, estados asíncronos resilientes y carga sub-segundo en sitios terceros.",
+          en: "Embeddable Booking Widget: Real-time availability and booking widget in Next.js/React with resilient async state and sub-second load times.",
+        },
+        {
+          es: "Dashboard Analítico de Mercado: Interfaz reactiva con drawers laterales para edición de catálogos en caliente y filtros temporales de alta precisión.",
+          en: "Market Analytics Dashboard: Reactive interface featuring side drawers for live catalogue editing and precision date-range temporal filtering.",
+        },
+      ],
+      technologies: ["NestJS", "Node.js", "TypeScript", "React", "MongoDB", "Prisma ORM", "Stripe", "Supabase", "Tailwind CSS"],
       current: false,
     },
   ] as Experience[],
