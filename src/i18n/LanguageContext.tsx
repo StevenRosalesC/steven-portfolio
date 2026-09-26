@@ -25,7 +25,7 @@ function getClientLanguageSnapshot(): Language {
   try {
     const saved = localStorage.getItem(STORAGE_KEY) as Language | null;
     if (saved === "es" || saved === "en") return saved;
-    return navigator.language.startsWith("en") ? "en" : "es";
+    return "es";
   } catch {
     return "es";
   }
