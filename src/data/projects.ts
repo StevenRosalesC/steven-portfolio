@@ -112,4 +112,26 @@ export const projects: Project[] = [
       en: "Real-time interactive workout tracker",
     },
   },
+  {
+    id: "mobixi-backend",
+    title: "Mobixi Backend API",
+    description: {
+      es: "API backend modular construida con NestJS y Prisma ORM para gestión multi-tienda, suscripciones, productos, envíos y pagos. Implementa autenticación JWT con refresh tokens, control de acceso basado en roles (RBAC) y documentación interactiva con Swagger.",
+      en: "Modular backend API built with NestJS and Prisma ORM for multi-store management, subscriptions, products, deliveries, and payments. Features JWT authentication with refresh tokens, role-based access control (RBAC), and interactive Swagger documentation.",
+    },
+    category: "Backend & DevOps",
+    tags: ["NestJS", "TypeScript", "Prisma ORM", "PostgreSQL", "JWT", "Swagger"],
+    language: "TypeScript",
+    languageColor: "bg-blue-400",
+    stars: 0,
+    forks: 0,
+    featured: false,
+    isPrivate: false,
+    githubUrl: "https://github.com/StevenRosalesC/mobixi-backend",
+    stats: {
+      es: "Arquitectura NestJS · RBAC & Swagger",
+      en: "NestJS Architecture · RBAC & Swagger",
+    },
+  },
 ];
+
