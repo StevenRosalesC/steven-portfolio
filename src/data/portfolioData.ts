@@ -39,9 +39,9 @@ export const portfolioData = {
     bio: "I build fast, scalable, and resilient web applications end to end — from robust backend database architectures to pixel-perfect, futuristic user interfaces.",
     location: "Santa Elena, Ecuador",
     timezone: "America/Guayaquil",
-    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "stevenrosales.dev@gmail.com",
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "stevenrosales31@gmail.com",
     github: "https://github.com/StevenRosalesC",
-    linkedin: "https://linkedin.com/in/stevenrosalesc",
+    linkedin: "https://www.linkedin.com/in/steven-rosales-dev/",
     cvUrl: process.env.NEXT_PUBLIC_CV_URL || "https://drive.google.com/file/d/120HUgq8Iu5_Ku5tOplqrzQibJa5CT3Wv/view?usp=sharing",
     stats: [
       { label: "Years Experience", value: "3+" },
