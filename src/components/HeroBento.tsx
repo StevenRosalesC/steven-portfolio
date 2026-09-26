@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Copy, Check, ArrowRight, Mail } from "lucide-react";
+import { Copy, Check, ArrowRight, Mail, FileText } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 import { SpotlightCard } from "./SpotlightCard";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -146,6 +146,20 @@ console.log("Ready to build something impactful.");`;
                   </>
                 )}
               </button>
+
+              {portfolioData.personal.cvUrl && (
+                <a
+                  href={portfolioData.personal.cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.06] text-zinc-300 hover:text-white font-mono text-xs transition-colors hover:-translate-y-0.5"
+                  title="Curriculum Vitae"
+                  aria-label="View Curriculum Vitae"
+                >
+                  <FileText className="w-3.5 h-3.5 text-violet-400" />
+                  <span>$ view --cv</span>
+                </a>
+              )}
             </div>
 
             {/* Quick tags */}

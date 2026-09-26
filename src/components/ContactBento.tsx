@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { portfolioData } from "@/data/portfolioData";
 import { SpotlightCard } from "./SpotlightCard";
-import { Mail, Copy, Check, Send, Terminal } from "lucide-react";
+import { Mail, Copy, Check, Send, Terminal, FileText } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./Icons";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -117,6 +117,19 @@ export function ContactBento() {
               >
                 <LinkedinIcon className="w-4 h-4" />
               </a>
+
+              {portfolioData.personal.cvUrl && (
+                <a
+                  href={portfolioData.personal.cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] text-zinc-300 hover:text-white transition-all"
+                  title="Curriculum Vitae"
+                  aria-label="View Curriculum Vitae"
+                >
+                  <FileText className="w-4 h-4 text-violet-400" />
+                </a>
+              )}
             </div>
 
             {/* Quick Interactive Terminal Message Form */}

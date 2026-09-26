@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Mail, Terminal, Menu, X, ArrowUpRight, Globe } from "lucide-react";
+import { Mail, Terminal, Menu, X, ArrowUpRight, Globe, FileText } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./Icons";
 import { portfolioData } from "@/data/portfolioData";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -155,6 +155,18 @@ export function Navbar() {
               >
                 <Mail className="w-4 h-4" />
               </a>
+              {portfolioData.personal.cvUrl && (
+                <a
+                  href={portfolioData.personal.cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Curriculum Vitae"
+                  title="Curriculum Vitae"
+                  className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/[0.06] border border-transparent hover:border-white/[0.08] transition-all"
+                >
+                  <FileText className="w-4 h-4 text-violet-400" />
+                </a>
+              )}
             </div>
           </div>
 
@@ -251,6 +263,16 @@ export function Navbar() {
               >
                 <Mail className="w-4 h-4" /> Email
               </a>
+              {portfolioData.personal.cvUrl && (
+                <a
+                  href={portfolioData.personal.cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-3 py-1.5 text-xs text-zinc-400"
+                >
+                  <FileText className="w-4 h-4 text-violet-400" /> CV
+                </a>
+              )}
             </div>
           </div>
         </div>
