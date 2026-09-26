@@ -1,6 +1,6 @@
 export interface Project {
   id: string; // Unique identifier or repo slug (e.g. "bambil-shoes-store")
-  title: string; // Display title of the project
+  title: string | { es: string; en: string }; // Display title of the project
   description: string | { es: string; en: string }; // Clear description of features, problem solved, and architecture
   category: "Full Stack" | "Frontend" | "Backend & DevOps" | "Tools" | "Mobile";
   tags: string[]; // Technologies used (e.g. ["Next.js", "TypeScript", "Tailwind CSS"])
@@ -19,15 +19,9 @@ export interface Project {
  * ==============================================================================
  * FEATURED PROJECTS (MODIFIABLE & BILINGUAL ARRAY)
  * ==============================================================================
- * Modify, add, or remove projects in this array to curate exactly which projects
- * are highlighted in the "Featured Projects" section of your portfolio.
- *
- * Configurable options:
- * - isPrivate: true / false (hides public GitHub link and shows 'Private' badge)
- * - featured: true / false (priority Bento Grid card sizing)
- * - liveUrl: Production / demo URL (if available)
- * - githubUrl: Link to repository on GitHub
- * - description / stats: string or { es: "...", en: "..." } for i18n
+ * Curated projects highlighted in the "Featured Projects" section of the portfolio.
+ * Includes both independent open/closed-source platforms and enterprise solutions
+ * designed under non-disclosure agreements (represented functionally with isPrivate: true).
  * ==============================================================================
  */
 export const projects: Project[] = [
@@ -46,12 +40,12 @@ export const projects: Project[] = [
     forks: 2,
     featured: true,
     isPrivate: true,
-    liveUrl: "https://bambilshoes.com",
     stats: {
       es: "Taller Artesanal · Colonche, Santa Elena",
       en: "Artisanal Workshop · Colonche, Santa Elena",
     },
   },
+
   {
     id: "app-comuna-next",
     title: "App Comuna Next",

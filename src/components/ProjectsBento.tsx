@@ -51,6 +51,21 @@ export function ProjectsBento() {
     return desc[language] || desc.es || desc.en;
   };
 
+  const getTitle = (title: string | { es: string; en: string }) => {
+    if (typeof title === "string") return title;
+    return title[language] || title.es || title.en;
+  };
+
+  const getCategoryLabel = (cat: string) => {
+    if (cat === "All") return dict.projects.filterAll;
+    if (cat === "Full Stack") return dict.projects.categories.fullStack;
+    if (cat === "Frontend") return dict.projects.categories.frontend;
+    if (cat === "Backend & DevOps") return dict.projects.categories.backend;
+    if (cat === "Tools") return dict.projects.categories.tools;
+    if (cat === "Mobile") return dict.projects.categories.mobile;
+    return cat;
+  };
+
   const getStats = (stats?: string | { es: string; en: string }) => {
     if (!stats) return undefined;
     if (typeof stats === "string") return stats;
@@ -96,7 +111,7 @@ export function ProjectsBento() {
                   : "text-zinc-400 hover:text-zinc-200"
               }`}
             >
-              {cat === "All" ? dict.projects.filterAll : cat}
+              {getCategoryLabel(cat)}
             </button>
           ))}
         </div>
@@ -128,10 +143,10 @@ export function ProjectsBento() {
                     </div>
                     <div>
                       <h3 className="font-mono text-base font-semibold text-zinc-100 group-hover:text-cyan-300 transition-colors flex items-center gap-2">
-                        <span>{project.title}</span>
+                        <span>{getTitle(project.title)}</span>
                       </h3>
                       <span className="text-[10px] font-mono text-zinc-400">
-                        {project.category}
+                        {getCategoryLabel(project.category)}
                       </span>
                     </div>
                   </div>
@@ -219,7 +234,7 @@ export function ProjectsBento() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-white/[0.06] transition-all"
-                        aria-label={`View ${project.title} source code on GitHub`}
+                        aria-label={`View ${getTitle(project.title)} source code on GitHub`}
                         title="View GitHub Repository"
                       >
                         <GithubIcon className="w-3.5 h-3.5" />
@@ -233,7 +248,7 @@ export function ProjectsBento() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/20 hover:border-cyan-500/40 transition-all font-medium"
-                      aria-label={`Open live demo for ${project.title}`}
+                      aria-label={`Open live demo for ${getTitle(project.title)}`}
                     >
                       <span>{dict.projects.liveButton}</span>
                       <ExternalLink className="w-3 h-3" />
