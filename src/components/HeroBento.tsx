@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Copy, Check, ArrowRight, Mail, FileText } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 import { SpotlightCard } from "./SpotlightCard";
 import { useLanguage } from "@/i18n/LanguageContext";
+import Link from "next/link";
 
 export function HeroBento() {
   const [activeTab, setActiveTab] = useState<"about" | "skills" | "contact">("about");
@@ -77,14 +79,27 @@ console.log("Ready to build something impactful.");`;
           <div className="absolute -top-20 -left-20 w-72 h-72 bg-violet-600/15 rounded-full blur-3xl pointer-events-none" />
 
           <div>
-            {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs mb-6 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span>{dict.hero.badge}</span>
-            </div>
+            {/* Header: Status Pill & Brand Logo */}
+            {/*<div className="flex items-center justify-between gap-4 mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs backdrop-blur-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span>{dict.hero.badge}</span>
+              </div>
+
+              <div className="relative w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 drop-shadow-[0_0_12px_rgba(162,253,73,0.35)] transition-transform hover:scale-105">
+                <Image
+                  src="/sr-logo-icon.svg"
+                  alt="Steven Rosales Icon"
+                  width={44}
+                  height={44}
+                  className="w-full h-full object-contain"
+                  priority
+                />
+              </div>
+            </div>*/}
 
             {/* Code syntax headline */}
             <div className="font-mono mb-4">
@@ -112,21 +127,13 @@ console.log("Ready to build something impactful.");`;
           {/* Action buttons (CLI style) */}
           <div className="space-y-4 pt-4 border-t border-white/[0.06]">
             <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="#projects"
-                className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-violet-600/90 hover:bg-violet-500 text-white font-mono text-xs sm:text-sm font-medium transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] hover:-translate-y-0.5"
-              >
-                <span>$ view --projects</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </a>
-
-              <a
+              <Link
                 href="#contact"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] hover:border-white/[0.2] text-zinc-200 hover:text-white font-mono text-xs sm:text-sm font-medium transition-all hover:-translate-y-0.5"
               >
                 <Mail className="w-3.5 h-3.5 text-cyan-400" />
                 <span>$ {dict.hero.contactButton.toLowerCase()}</span>
-              </a>
+              </Link>
 
               <button
                 type="button"
@@ -148,7 +155,7 @@ console.log("Ready to build something impactful.");`;
               </button>
 
               {portfolioData.personal.cvUrl && (
-                <a
+                <Link
                   href={portfolioData.personal.cvUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -158,7 +165,7 @@ console.log("Ready to build something impactful.");`;
                 >
                   <FileText className="w-3.5 h-3.5 text-violet-400" />
                   <span>$ view --cv</span>
-                </a>
+                </Link>
               )}
             </div>
 

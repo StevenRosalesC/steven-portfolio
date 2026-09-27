@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { portfolioData } from "@/data/portfolioData";
 import { ArrowUp } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -16,8 +17,16 @@ export function Footer() {
     <footer className="py-12 border-t border-white/[0.06] bg-[#07080c] text-xs font-mono text-zinc-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-violet-400">&gt;_</span>
+          <div className="flex items-center gap-2.5">
+            <div className="relative w-5 h-5 flex-shrink-0">
+              <Image
+                src="/sr-logo-icon.svg"
+                alt="Steven Rosales Logo"
+                width={20}
+                height={20}
+                className="w-full h-full object-contain"
+              />
+            </div>
             <span className="text-zinc-400 font-medium">{portfolioData.personal.handle}</span>
             <span>— {dict.footer.rights}</span>
           </div>

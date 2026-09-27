@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Mail, Terminal, Menu, X, ArrowUpRight, Globe, FileText } from "lucide-react";
+import Image from "next/image";
+import { Mail, Menu, X, ArrowUpRight, Globe, FileText } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./Icons";
 import { portfolioData } from "@/data/portfolioData";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -63,13 +64,20 @@ export function Navbar() {
           {/* Logo / Terminal prompt */}
           <Link
             href="#home"
-            className="flex items-center gap-2 group font-mono text-sm sm:text-base text-zinc-100 hover:text-white transition-colors"
+            className="flex items-center gap-2.5 group font-mono text-sm sm:text-base text-zinc-100 hover:text-white transition-colors"
           >
-            <div className="p-1.5 rounded-lg bg-white/[0.05] border border-white/[0.08] group-hover:border-violet-500/50 group-hover:bg-violet-500/10 transition-all">
-              <Terminal className="w-4 h-4 text-violet-400" />
+            <div className="relative w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0 transition-transform group-hover:scale-105 drop-shadow-[0_0_8px_rgba(162,253,73,0.3)]">
+              <Image
+                src="/sr-logo-icon.svg"
+                alt="Steven Rosales Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-contain"
+                priority
+              />
             </div>
             <span className="font-semibold tracking-tight">
-              <span className="text-violet-400">&gt;_</span> {portfolioData.personal.handle}
+              {portfolioData.personal.handle}
             </span>
             <span className="w-2 h-4 bg-violet-400 animate-pulse hidden sm:inline-block" />
           </Link>
