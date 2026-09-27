@@ -79,8 +79,8 @@ export function JsonLd({
         mainEntity: {
           "@id": `${siteUrl}/#person`,
         },
-        datePublished: "2024-01-01",
-        dateModified: new Date().toISOString().split("T")[0],
+        datePublished: "2024-01-01T00:00:00Z",
+        dateModified: new Date().toISOString(),
       },
       {
         "@type": "ItemList",
@@ -99,6 +99,9 @@ export function JsonLd({
                 : project.description.es || project.description.en,
             applicationCategory: project.category,
             operatingSystem: "Web",
+            author: {
+              "@id": `${siteUrl}/#person`,
+            },
             offers: {
               "@type": "Offer",
               price: "0",
