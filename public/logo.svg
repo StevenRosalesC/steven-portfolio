@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+  <defs>
+    <!-- Outer button lighting & gradients -->
+    <linearGradient id="outerBevel" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a4c52" />
+      <stop offset="3%" stop-color="#2a2b30" />
+      <stop offset="97%" stop-color="#212226" />
+      <stop offset="100%" stop-color="#60626a" />
+    </linearGradient>
+
+    <linearGradient id="caseGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#303238" />
+      <stop offset="10%" stop-color="#2a2b30" />
+      <stop offset="90%" stop-color="#25262a" />
+      <stop offset="100%" stop-color="#1f2024" />
+    </linearGradient>
+
+    <linearGradient id="innerScreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2b2d33" />
+      <stop offset="50%" stop-color="#27292e" />
+      <stop offset="100%" stop-color="#232428" />
+    </linearGradient>
+
+    <!-- Neon Glow Filters -->
+    <filter id="greenGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <!-- Wide diffuse glow -->
+      <feGaussianBlur stdDeviation="16" result="blurWide" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0.639
+                                           0 0 0 0 0.992
+                                           0 0 0 0 0.286
+                                           0 0 0 0.35 0" in="blurWide" result="glowWide" />
+      <!-- Medium glow -->
+      <feGaussianBlur stdDeviation="7" in="SourceGraphic" result="blurMed" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0.639
+                                           0 0 0 0 0.992
+                                           0 0 0 0 0.286
+                                           0 0 0 0.55 0" in="blurMed" result="glowMed" />
+      <!-- Tight intense glow -->
+      <feGaussianBlur stdDeviation="2.5" in="SourceGraphic" result="blurTight" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0.75
+                                           0 0 0 0 1.0
+                                           0 0 0 0 0.4
+                                           0 0 0 0.7 0" in="blurTight" result="glowTight" />
+      <feMerge>
+        <feMergeNode in="glowWide" />
+        <feMergeNode in="glowMed" />
+        <feMergeNode in="glowTight" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="orangeGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="14" result="blurWide" />
+      <feColorMatrix type="matrix" values="0 0 0 0 1.0
+                                           0 0 0 0 0.62
+                                           0 0 0 0 0.14
+                                           0 0 0 0.4 0" in="blurWide" result="glowWide" />
+      <feGaussianBlur stdDeviation="6" in="SourceGraphic" result="blurMed" />
+      <feColorMatrix type="matrix" values="0 0 0 0 1.0
+                                           0 0 0 0 0.62
+                                           0 0 0 0 0.14
+                                           0 0 0 0.6 0" in="blurMed" result="glowMed" />
+      <feGaussianBlur stdDeviation="2" in="SourceGraphic" result="blurTight" />
+      <feColorMatrix type="matrix" values="0 0 0 0 1.0
+                                           0 0 0 0 0.75
+                                           0 0 0 0 0.3
+                                           0 0 0 0.8 0" in="blurTight" result="glowTight" />
+      <feMerge>
+        <feMergeNode in="glowWide" />
+        <feMergeNode in="glowMed" />
+        <feMergeNode in="glowTight" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer housing with beveled rim -->
+  <rect x="162.5" y="162.5" width="675" height="675" rx="108" fill="url(#caseGradient)" stroke="url(#outerBevel)" stroke-width="2.5" />
+
+  <!-- Dark recessed groove -->
+  <rect x="199" y="199" width="602" height="602" rx="84" fill="#18191d" stroke="#131417" stroke-width="1.5" />
+
+  <!-- Inner display screen -->
+  <rect x="224" y="224" width="552" height="552" rx="66" fill="url(#innerScreen)" />
+
+  <!-- Green Neon Characters: S and R -->
+  <g filter="url(#greenGlow)" fill="#a2fd49">
+    <!-- Letter S -->
+    <path d="M 322.00 398.87 L 319.00 400.35 L 317.37 403.00 L 316.79 421.00 L 316.25 423.00 L 315.40 424.00 L 314.00 425.03 L 312.00 425.48 L 294.00 426.19 L 292.00 426.99 L 290.37 429.00 L 289.86 432.00 L 289.76 461.00 L 290.49 479.00 L 292.00 480.88 L 294.00 481.85 L 311.00 482.35 L 315.00 483.59 L 316.12 485.00 L 316.92 488.00 L 317.53 505.00 L 319.00 507.59 L 322.00 509.35 L 398.00 509.61 L 401.49 511.00 L 403.25 514.00 L 403.46 518.00 L 403.22 568.00 L 401.50 571.00 L 398.00 572.24 L 322.00 572.16 L 319.60 571.00 L 317.93 568.00 L 317.48 549.00 L 315.80 546.00 L 313.00 544.49 L 296.00 544.45 L 294.00 544.55 L 292.00 545.54 L 290.79 547.00 L 290.19 549.00 L 289.94 565.00 L 290.81 570.00 L 292.00 571.48 L 294.00 572.56 L 311.67 573.00 L 315.00 574.51 L 316.26 576.00 L 316.75 578.00 L 317.35 596.00 L 319.00 598.67 L 322.00 600.06 L 392.00 600.21 L 398.00 600.15 L 401.00 599.41 L 403.39 597.00 L 403.95 595.00 L 404.37 579.00 L 405.68 575.00 L 409.00 573.10 L 427.00 572.55 L 429.68 571.00 L 430.87 569.00 L 431.26 566.00 L 431.43 531.00 L 431.26 514.00 L 430.67 512.00 L 428.91 510.00 L 427.00 509.24 L 410.00 508.88 L 408.00 508.46 L 406.00 507.11 L 404.68 505.00 L 404.32 503.00 L 403.77 486.00 L 402.00 483.42 L 399.00 482.00 L 323.00 481.48 L 321.00 481.14 L 319.12 480.00 L 317.95 478.00 L 317.69 474.00 L 318.17 431.00 L 318.88 429.00 L 320.00 427.78 L 322.00 426.95 L 326.00 426.66 L 399.00 426.80 L 401.65 428.00 L 403.29 431.00 L 403.71 450.00 L 405.00 452.53 L 407.00 453.96 L 409.00 454.50 L 425.00 454.52 L 427.00 454.39 L 429.00 453.53 L 430.42 452.00 L 431.22 450.00 L 431.03 430.00 L 429.92 428.00 L 427.00 426.28 L 410.00 425.80 L 407.00 425.03 L 406.00 424.20 L 405.00 422.79 L 404.49 420.00 L 403.71 403.00 L 402.00 400.35 L 400.00 399.27 L 383.00 398.68 L 322.00 398.87 Z" />
+    <!-- Letter R -->
+    <path fill-rule="evenodd" d="M 477.00 398.86 L 474.00 399.98 L 472.37 402.00 L 471.64 409.00 L 471.46 569.00 L 471.81 595.00 L 472.88 598.00 L 475.00 599.60 L 477.00 600.07 L 494.00 600.10 L 497.31 599.00 L 499.39 596.00 L 500.00 510.24 L 501.00 509.73 L 528.00 509.62 L 537.00 509.79 L 539.00 510.57 L 540.00 511.73 L 540.95 527.00 L 541.45 529.00 L 543.00 531.07 L 546.00 532.49 L 559.00 532.88 L 562.00 534.69 L 562.73 537.00 L 563.39 552.00 L 565.11 555.00 L 567.00 556.27 L 569.00 556.73 L 582.00 557.12 L 584.00 557.94 L 584.93 559.00 L 585.56 562.00 L 585.82 594.00 L 587.18 598.00 L 589.00 599.48 L 592.00 600.12 L 608.00 600.11 L 611.00 599.21 L 612.89 597.00 L 613.49 594.00 L 613.56 560.00 L 612.51 556.00 L 611.00 554.48 L 609.00 553.55 L 594.00 553.08 L 592.00 552.36 L 590.68 550.00 L 590.47 536.00 L 589.68 533.00 L 588.00 531.12 L 585.00 529.91 L 571.00 529.33 L 569.00 528.37 L 567.99 526.00 L 567.94 514.00 L 568.70 511.00 L 570.25 510.00 L 582.00 509.26 L 585.10 507.00 L 586.13 505.00 L 586.40 503.00 L 586.79 487.00 L 587.64 485.00 L 589.00 483.61 L 593.00 482.41 L 609.00 482.02 L 611.00 481.32 L 612.48 480.00 L 613.39 477.00 L 613.73 450.00 L 613.55 431.00 L 612.62 428.00 L 611.00 426.55 L 609.00 426.07 L 592.00 425.72 L 589.11 425.00 L 588.00 424.17 L 586.65 421.00 L 586.00 403.17 L 584.00 400.14 L 581.68 399.00 L 547.00 398.60 L 477.00 398.86 Z M 500.03 427.00 L 501.00 426.64 L 579.00 426.60 L 583.00 427.56 L 585.00 429.63 L 585.53 432.00 L 585.64 476.00 L 585.00 478.74 L 583.00 480.76 L 579.00 481.60 L 521.00 481.62 L 500.00 481.14 L 499.63 458.00 L 500.03 427.00 Z" />
+  </g>
+
+  <!-- Orange Neon Cursor: _ -->
+  <g filter="url(#orangeGlow)" fill="#ff9e22">
+    <path d="M 647.00 581.86 L 645.63 584.00 L 645.64 597.00 L 646.48 599.00 L 649.00 600.20 L 734.00 600.22 L 737.00 599.42 L 738.23 597.00 L 738.15 584.00 L 737.05 582.00 L 736.00 581.51 L 670.00 581.20 L 650.00 581.34 L 647.00 581.86 Z" />
+  </g>
+</svg>

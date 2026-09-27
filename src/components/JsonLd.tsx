@@ -27,6 +27,7 @@ export function JsonLd({
           "Full Stack Developer and Software Architect specializing in Next.js, React 19, TypeScript, Node.js, NestJS, and PostgreSQL.",
         url: siteUrl,
         image: `${siteUrl}/opengraph-image`,
+        logo: `${siteUrl}/sr-logo.svg`,
         sameAs: [
           "https://github.com/StevenRosalesC",
           "https://www.linkedin.com/in/steven-rosales-dev/",
@@ -64,6 +65,7 @@ export function JsonLd({
         publisher: {
           "@id": `${siteUrl}/#person`,
         },
+        image: `${siteUrl}/sr-logo.svg`,
         inLanguage: ["es-EC", "en-US"],
       },
       {

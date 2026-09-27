@@ -34,6 +34,8 @@ export const portfolioData = {
     name: "Steven Rosales",
     handle: "steven.dev",
     role: "Full Stack Developer & Software Architect",
+    logo: "/sr-logo.svg",
+    logoIcon: "/sr-logo-icon.svg",
     statusText: "open to work",
     isOpenToWork: true,
     bio: "I build fast, scalable, and resilient web applications end to end — from robust backend database architectures to pixel-perfect, futuristic user interfaces.",

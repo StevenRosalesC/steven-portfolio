@@ -100,8 +100,12 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: [
+      { url: "/sr-logo-icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
+    apple: "/sr-logo-icon.svg",
+    shortcut: "/sr-logo-icon.svg",
   },
   manifest: "/manifest.webmanifest",
 };
