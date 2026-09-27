@@ -126,134 +126,137 @@ export function ProjectsBento() {
             <SpotlightCard
               key={project.id}
               glowColor={project.isPrivate ? "pink" : idx % 2 === 0 ? "cyan" : "violet"}
-              className={`p-6 flex flex-col justify-between group ${
+              className={`h-full p-6 group ${
                 isLarge ? "md:col-span-2 lg:col-span-2 bg-[#0c0e18]" : "col-span-1"
               }`}
             >
-              <div>
-                {/* Project Card Header */}
-                <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.06]">
-                  <div className="flex items-center gap-2.5">
-                    <div className={`p-2 rounded-lg border transition-all ${
-                      project.isPrivate
-                        ? "bg-amber-500/10 border-amber-500/20 text-amber-300 group-hover:bg-amber-500/20"
-                        : "bg-white/[0.04] border-white/[0.08] text-cyan-400 group-hover:text-white group-hover:bg-cyan-500/20 group-hover:border-cyan-500/30"
-                    }`}>
-                      <FolderGit2 className="w-4 h-4" />
+              <div className="h-full flex flex-col justify-between">
+                {/* Upper Card Content */}
+                <div className="flex-1 flex flex-col">
+                  {/* Project Card Header */}
+                  <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.06]">
+                    <div className="flex items-center gap-2.5">
+                      <div className={`p-2 rounded-lg border transition-all ${
+                        project.isPrivate
+                          ? "bg-amber-500/10 border-amber-500/20 text-amber-300 group-hover:bg-amber-500/20"
+                          : "bg-white/[0.04] border-white/[0.08] text-cyan-400 group-hover:text-white group-hover:bg-cyan-500/20 group-hover:border-cyan-500/30"
+                      }`}>
+                        <FolderGit2 className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h3 className="font-mono text-base font-semibold text-zinc-100 group-hover:text-cyan-300 transition-colors flex items-center gap-2">
+                          <span>{getTitle(project.title)}</span>
+                        </h3>
+                        <span className="text-[10px] font-mono text-zinc-400">
+                          {getCategoryLabel(project.category)}
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-mono text-base font-semibold text-zinc-100 group-hover:text-cyan-300 transition-colors flex items-center gap-2">
-                        <span>{getTitle(project.title)}</span>
-                      </h3>
-                      <span className="text-[10px] font-mono text-zinc-400">
-                        {getCategoryLabel(project.category)}
-                      </span>
+
+                    <div className="flex items-center gap-1.5">
+                      {project.isPrivate ? (
+                        <span className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 border border-amber-500/20 text-amber-300">
+                          <Lock className="w-2.5 h-2.5" />
+                          <span>{dict.projects.privateBadge}</span>
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">
+                          {dict.projects.publicBadge}
+                        </span>
+                      )}
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1.5">
-                    {project.isPrivate ? (
-                      <span className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 border border-amber-500/20 text-amber-300">
-                        <Lock className="w-2.5 h-2.5" />
-                        <span>{dict.projects.privateBadge}</span>
+                  {/* Description */}
+                  <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed mb-5">
+                    {getDesc(project.description)}
+                  </p>
+
+                  {/* Performance or special stats highlight */}
+                  {project.stats && (
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-emerald-400 font-mono text-[11px] mb-5">
+                      <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                      <span>{getStats(project.stats)}</span>
+                    </div>
+                  )}
+
+                  {/* Tech Pills */}
+                  <div className="flex flex-wrap gap-1.5 mb-6">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/[0.07] font-mono text-[11px] text-zinc-300 hover:text-white hover:border-white/[0.15] transition-colors"
+                      >
+                        {tag}
                       </span>
-                    ) : (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-500/10 border border-cyan-500/20 text-cyan-300">
-                        {dict.projects.publicBadge}
+                    ))}
+                  </div>
+                </div>
+
+                {/* Card Footer: GitHub Stats + Live/Code Links */}
+                <div className="mt-auto pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono">
+                  <div className="flex items-center gap-3 text-zinc-400">
+                    {project.language && (
+                      <span className="flex items-center gap-1.5 hover:text-zinc-300">
+                        <span
+                          className={`w-2 h-2 rounded-full inline-block ${
+                            project.languageColor || "bg-blue-400"
+                          }`}
+                        />
+                        <span>{project.language}</span>
+                      </span>
+                    )}
+                    {project.stars !== undefined && (
+                      <span className="flex items-center gap-1 text-zinc-400">
+                        <Star className="w-3.5 h-3.5 text-zinc-400" />
+                        <span>{project.stars}</span>
+                      </span>
+                    )}
+                    {project.forks !== undefined && (
+                      <span className="flex items-center gap-1 text-zinc-400">
+                        <GitFork className="w-3.5 h-3.5 text-zinc-400" />
+                        <span>{project.forks}</span>
                       </span>
                     )}
                   </div>
-                </div>
 
-                {/* Description */}
-                <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed mb-5">
-                  {getDesc(project.description)}
-                </p>
-
-                {/* Performance or special stats highlight */}
-                {project.stats && (
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/5 border border-emerald-500/15 text-emerald-400 font-mono text-[11px] mb-5">
-                    <Sparkles className="w-3.5 h-3.5 shrink-0" />
-                    <span>{getStats(project.stats)}</span>
-                  </div>
-                )}
-
-                {/* Tech Pills */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/[0.07] font-mono text-[11px] text-zinc-300 hover:text-white hover:border-white/[0.15] transition-colors"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Card Footer: GitHub Stats + Live/Code Links */}
-              <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono">
-                <div className="flex items-center gap-3 text-zinc-400">
-                  {project.language && (
-                    <span className="flex items-center gap-1.5 hover:text-zinc-300">
+                  <div className="flex items-center gap-2">
+                    {project.isPrivate ? (
                       <span
-                        className={`w-2 h-2 rounded-full inline-block ${
-                          project.languageColor || "bg-blue-400"
-                        }`}
-                      />
-                      <span>{project.language}</span>
-                    </span>
-                  )}
-                  {project.stars !== undefined && (
-                    <span className="flex items-center gap-1 text-zinc-400">
-                      <Star className="w-3.5 h-3.5 text-zinc-400" />
-                      <span>{project.stars}</span>
-                    </span>
-                  )}
-                  {project.forks !== undefined && (
-                    <span className="flex items-center gap-1 text-zinc-400">
-                      <GitFork className="w-3.5 h-3.5 text-zinc-400" />
-                      <span>{project.forks}</span>
-                    </span>
-                  )}
-                </div>
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-[11px] text-zinc-400 font-mono"
+                        title="Internal private repository"
+                      >
+                        <Lock className="w-3 h-3 text-amber-400/80" />
+                        <span>{dict.projects.privateBadge}</span>
+                      </span>
+                    ) : (
+                      project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-white/[0.06] transition-all"
+                          aria-label={`View ${getTitle(project.title)} source code on GitHub`}
+                          title="View GitHub Repository"
+                        >
+                          <GithubIcon className="w-3.5 h-3.5" />
+                        </a>
+                      )
+                    )}
 
-                <div className="flex items-center gap-2">
-                  {project.isPrivate ? (
-                    <span
-                      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-[11px] text-zinc-400 font-mono"
-                      title="Internal private repository"
-                    >
-                      <Lock className="w-3 h-3 text-amber-400/80" />
-                      <span>{dict.projects.privateBadge}</span>
-                    </span>
-                  ) : (
-                    project.githubUrl && (
+                    {project.liveUrl && (
                       <a
-                        href={project.githubUrl}
+                        href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-white/[0.06] transition-all"
-                        aria-label={`View ${getTitle(project.title)} source code on GitHub`}
-                        title="View GitHub Repository"
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/20 hover:border-cyan-500/40 transition-all font-medium"
+                        aria-label={`Open live demo for ${getTitle(project.title)}`}
                       >
-                        <GithubIcon className="w-3.5 h-3.5" />
+                        <span>{dict.projects.liveButton}</span>
+                        <ExternalLink className="w-3 h-3" />
                       </a>
-                    )
-                  )}
-
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/20 hover:border-cyan-500/40 transition-all font-medium"
-                      aria-label={`Open live demo for ${getTitle(project.title)}`}
-                    >
-                      <span>{dict.projects.liveButton}</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             </SpotlightCard>
