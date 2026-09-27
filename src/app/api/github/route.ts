@@ -13,6 +13,9 @@ interface GitHubRawRepo {
   html_url: string;
   homepage?: string | null;
   pushed_at: string;
+  owner?: {
+    login?: string;
+  };
 }
 
 interface GitHubCommitItem {
@@ -44,7 +47,161 @@ export async function GET() {
       githubHeaders.Authorization = `Bearer ${token}`;
     }
 
-    // 1. Fetch Repositories (Public + Private if token is available)
+    // =========================================================================
+    // FLOW 1: GLOBAL CONTRIBUTION CALENDAR (BOTH OWNED & NON-OWNED PROJECTS)
+    // Fetches all commits authored by Steven Rosales across personal repositories,
+    // client/partner organizations (e.g. Kickersoft), and collaborative projects.
+    // =========================================================================
+    const commitDateMap = new Map<string, number>();
+    const today = new Date();
+    const sixMonthsAgo = new Date(today.getTime() - 182 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0];
+
+    if (token) {
+      const searchHeaders = {
+        ...githubHeaders,
+        Accept: "application/vnd.github.cloak-preview+json, application/vnd.github.v3+json",
+      };
+
+      // 1. Search all commits authored by StevenRosalesC across all repositories in the last 6 months
+      try {
+        const firstPageRes = await fetch(
+          `https://api.github.com/search/commits?q=author:${username}+committer-date:>=${sixMonthsAgo}&per_page=100&page=1`,
+          {
+            headers: searchHeaders,
+            next: { revalidate: 600 },
+          }
+        );
+
+        if (firstPageRes.ok) {
+          const firstPageData = await firstPageRes.json();
+          const totalSearchCommits = firstPageData.total_count ?? 0;
+          const allItems: any[] = Array.isArray(firstPageData.items)
+            ? [...firstPageData.items]
+            : [];
+
+          const totalPages = Math.min(6, Math.ceil(totalSearchCommits / 100));
+          if (totalPages > 1) {
+            const pageRequests = [];
+            for (let page = 2; page <= totalPages; page++) {
+              pageRequests.push(
+                fetch(
+                  `https://api.github.com/search/commits?q=author:${username}+committer-date:>=${sixMonthsAgo}&per_page=100&page=${page}`,
+                  {
+                    headers: searchHeaders,
+                    next: { revalidate: 600 },
+                  }
+                ).then((r) => (r.ok ? r.json() : null))
+              );
+            }
+
+            const otherPagesData = await Promise.all(pageRequests);
+            for (const pageData of otherPagesData) {
+              if (pageData && Array.isArray(pageData.items)) {
+                allItems.push(...pageData.items);
+              }
+            }
+          }
+
+          // Count commits by day
+          allItems.forEach((it) => {
+            const d =
+              it?.commit?.author?.date?.split("T")[0] ||
+              it?.commit?.committer?.date?.split("T")[0];
+            if (d) {
+              commitDateMap.set(d, (commitDateMap.get(d) || 0) + 1);
+            }
+          });
+        }
+      } catch (searchErr) {
+        console.warn("Global commit search error:", searchErr);
+      }
+
+      // 2. Also query GraphQL contributionsCollection to merge pull requests, reviews, and issues
+      try {
+        const graphqlQuery = {
+          query: `
+            query($username: String!) {
+              user(login: $username) {
+                contributionsCollection {
+                  contributionCalendar {
+                    weeks {
+                      contributionDays {
+                        date
+                        contributionCount
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          `,
+          variables: { username },
+        };
+
+        const gqlRes = await fetch("https://api.github.com/graphql", {
+          method: "POST",
+          headers: {
+            ...githubHeaders,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(graphqlQuery),
+          next: { revalidate: 600 },
+        });
+
+        if (gqlRes.ok) {
+          const gqlData = await gqlRes.json();
+          const weeks =
+            gqlData?.data?.user?.contributionsCollection?.contributionCalendar?.weeks;
+          if (Array.isArray(weeks)) {
+            weeks.forEach((w: any) => {
+              if (Array.isArray(w.contributionDays)) {
+                w.contributionDays.forEach((day: any) => {
+                  const dt = day.date;
+                  const cnt = Number(day.contributionCount) || 0;
+                  if (cnt > 0) {
+                    commitDateMap.set(
+                      dt,
+                      Math.max(commitDateMap.get(dt) || 0, cnt)
+                    );
+                  }
+                });
+              }
+            });
+          }
+        }
+      } catch (gqlErr) {
+        console.warn("GraphQL calendar merge error:", gqlErr);
+      }
+    }
+
+    // Build the 26-week calendar (182 days ending today)
+    const contributions: Array<{ date: string; count: number; level: number }> = [];
+    let calculatedTotal = 0;
+
+    for (let i = 181; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const dateStr = d.toISOString().split("T")[0];
+      const count = commitDateMap.get(dateStr) || 0;
+      calculatedTotal += count;
+
+      let level = 0;
+      if (count >= 8) level = 4;
+      else if (count >= 5) level = 3;
+      else if (count >= 3) level = 2;
+      else if (count >= 1) level = 1;
+
+      contributions.push({ date: dateStr, count, level });
+    }
+
+    const totalContributions = calculatedTotal > 0 ? calculatedTotal : 32;
+
+    // =========================================================================
+    // FLOW 2: OWNED REPOSITORIES & RECENT ACTIVITY (Strictly filtered by owner)
+    // Only includes projects where Steven Rosales is the owner.
+    // =========================================================================
     let repos: Project[] = [];
     let privateReposCount = 0;
     let publicReposCount = 0;
@@ -63,7 +220,11 @@ export async function GET() {
     if (reposRes.ok) {
       const data = await reposRes.json();
       if (Array.isArray(data)) {
-        rawRepos = data;
+        // Enforce owner filter: only repositories owned by StevenRosalesC
+        rawRepos = data.filter(
+          (r: GitHubRawRepo) =>
+            !r.owner || r.owner.login?.toLowerCase() === username.toLowerCase()
+        );
         totalReposCount = rawRepos.length;
         privateReposCount = rawRepos.filter((r) => r.private).length;
         publicReposCount = rawRepos.filter((r) => !r.private).length;
@@ -106,8 +267,7 @@ export async function GET() {
       }
     }
 
-    // 2. Fetch Commits across top active repos (Captures real private & public commits)
-    const commitDateMap = new Map<string, number>();
+    // Fetch commits exclusively from Steven's top owned repositories
     const allRecentCommits: Array<{
       repo: string;
       isPrivate: boolean;
@@ -116,13 +276,12 @@ export async function GET() {
     }> = [];
 
     if (rawRepos.length > 0 && token) {
-      // Fetch commits in parallel for top 12 most recently pushed repositories
       const topRepos = rawRepos.slice(0, 12);
       await Promise.all(
         topRepos.map(async (r) => {
           try {
             const commitsRes = await fetch(
-              `https://api.github.com/repos/${username}/${r.name}/commits?per_page=60`,
+              `https://api.github.com/repos/${username}/${r.name}/commits?author=${username}&per_page=30`,
               {
                 next: { revalidate: 600 },
                 headers: githubHeaders,
@@ -132,10 +291,6 @@ export async function GET() {
               const commitList = await commitsRes.json();
               if (Array.isArray(commitList)) {
                 commitList.forEach((c: GitHubCommitItem) => {
-                  const dateStr = c.commit?.author?.date?.split("T")[0];
-                  if (dateStr) {
-                    commitDateMap.set(dateStr, (commitDateMap.get(dateStr) || 0) + 1);
-                  }
                   allRecentCommits.push({
                     repo: r.name,
                     isPrivate: Boolean(r.private),
@@ -152,7 +307,7 @@ export async function GET() {
       );
     }
 
-    // 3. Format Real Recent Activity
+    // Format Recent Activity (Filtered exclusively to Steven's own projects)
     let recentActivity: FormattedActivity[] = [];
     if (allRecentCommits.length > 0) {
       allRecentCommits.sort(
@@ -168,35 +323,6 @@ export async function GET() {
     } else {
       recentActivity = portfolioData.recentActivity;
     }
-
-    // 4. Build 26-Week Contribution Calendar (182 days ending today)
-    const today = new Date();
-    const contributions: Array<{ date: string; count: number; level: number }> = [];
-    let calculatedTotal = 0;
-
-    for (let i = 181; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const dateStr = d.toISOString().split("T")[0];
-      const count = commitDateMap.get(dateStr) || 0;
-      calculatedTotal += count;
-
-      let level = 0;
-      if (count >= 8) level = 4;
-      else if (count >= 5) level = 3;
-      else if (count >= 3) level = 2;
-      else if (count >= 1) level = 1;
-
-      contributions.push({ date: dateStr, count, level });
-    }
-
-    // Also calculate total commits across the entire year from the map
-    let yearTotal = 0;
-    commitDateMap.forEach((cnt) => {
-      yearTotal += cnt;
-    });
-
-    const totalContributions = yearTotal > 0 ? yearTotal : (calculatedTotal > 0 ? calculatedTotal : 32);
 
     return NextResponse.json({
       success: true,
