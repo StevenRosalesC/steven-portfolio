@@ -1,7 +1,4 @@
-"use client";
-
-import React, { useEffect } from "react";
-import Script from "next/script";
+import React from "react";
 
 declare global {
   interface Window {
@@ -15,27 +12,8 @@ interface GoogleAnalyticsProps {
 }
 
 export function GoogleAnalytics({
-  gaId = process.env.NEXT_PUBLIC_GA_ID,
+  gaId = process.env.NEXT_PUBLIC_GA_ID || "G-JYVPEKBZV2",
 }: GoogleAnalyticsProps) {
-  useEffect(() => {
-    // Listen for cookie consent updates from CookieConsent component or policy pages
-    const handleConsentChange = (event: Event) => {
-      const customEvent = event as CustomEvent<{ granted: boolean }>;
-      const isGranted = customEvent?.detail?.granted;
-
-      if (typeof window !== "undefined" && typeof window.gtag === "function") {
-        window.gtag("consent", "update", {
-          analytics_storage: isGranted ? "granted" : "denied",
-        });
-      }
-    };
-
-    window.addEventListener("cookie_consent_change", handleConsentChange);
-    return () => {
-      window.removeEventListener("cookie_consent_change", handleConsentChange);
-    };
-  }, []);
-
   if (!gaId || gaId.trim() === "") {
     return null;
   }
@@ -44,10 +22,14 @@ export function GoogleAnalytics({
 
   return (
     <>
-      {/* 1. Google Consent Mode v2 Default Configuration */}
-      <Script
-        id="google-consent-mode"
-        strategy="beforeInteractive"
+      {/* 1. Official Google tag (gtag.js) */}
+      <script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${cleanGaId}`}
+      />
+
+      {/* 2. Google Consent Mode v2 & Configuration */}
+      <script
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
@@ -71,18 +53,10 @@ export function GoogleAnalytics({
 
             gtag('js', new Date());
             gtag('config', '${cleanGaId}', {
-              page_path: window.location.pathname,
               anonymize_ip: true
             });
           `,
         }}
-      />
-
-      {/* 2. Google Tag Manager / Analytics Script */}
-      <Script
-        id="google-analytics-tag"
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${cleanGaId}`}
       />
     </>
   );
