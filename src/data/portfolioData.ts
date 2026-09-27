@@ -48,7 +48,7 @@ export const portfolioData = {
     stats: [
       { label: "Years Experience", value: "3+" },
       { label: "Projects Shipped", value: "15+" },
-      { label: "Git Commits", value: "2.4k+" },
+      { label: "Git Commits", value: "560+" },
       { label: "Uptime & Quality", value: "99.9%" },
     ],
   },

@@ -10,6 +10,7 @@ export function StatsBento() {
     totalRepos: number;
     privateRepos: number;
     publicRepos: number;
+    totalContributions?: number;
   } | null>(null);
   const { dict, language } = useLanguage();
 
@@ -19,7 +20,10 @@ export function StatsBento() {
       .then((res) => res.json())
       .then((data) => {
         if (isMounted && data.success && data.metrics) {
-          setMetrics(data.metrics);
+          setMetrics({
+            ...data.metrics,
+            totalContributions: data.metrics.totalContributions || data.totalContributions || 560,
+          });
         }
       })
       .catch((e) => console.warn("Using offline stats", e));
@@ -40,21 +44,21 @@ export function StatsBento() {
     },
     {
       label: dict.stats.totalRepos,
-      value: metrics ? `${metrics.totalRepos}` : "23",
+      value: metrics ? `${metrics.totalRepos}` : "49",
       sub: metrics
         ? language === "es"
           ? `${metrics.privateRepos} Privados · ${metrics.publicRepos} Públicos`
           : `${metrics.privateRepos} Private · ${metrics.publicRepos} Public`
         : language === "es"
-          ? "11 Privados · 12 Públicos"
-          : "11 Private · 12 Public",
+          ? "35 Privados · 14 Públicos"
+          : "35 Private · 14 Public",
       icon: Layers,
       accent: "cyan" as const,
       badge: "METRIC_02",
     },
     {
       label: dict.stats.contributions,
-      value: "2.4k+",
+      value: metrics?.totalContributions ? `${metrics.totalContributions}+` : "560+",
       sub: dict.stats.contributionsDesc,
       icon: GitCommit,
       accent: "emerald" as const,
