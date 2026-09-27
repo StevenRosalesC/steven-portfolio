@@ -130,5 +130,17 @@ export const en: Translations = {
     rights: "All rights reserved.",
     builtWith: "Built with Next.js 16, Tailwind CSS & Bento Grid aesthetics.",
     status: "Systems operational & deployed",
+    privacy: "Privacy Policy",
+    cookies: "Cookie Policy",
+    cookiePreferences: "Cookie Preferences",
+  },
+  cookies: {
+    badge: "PRIVACY // TELEMETRY",
+    title: "Privacy & Analytics Cookies",
+    description: "This portfolio uses strictly anonymous analytical telemetry (Google Analytics 4) to gauge technical performance and user experience. We do not collect personal data or use advertising cookies.",
+    accept: "Accept Analytics",
+    decline: "Decline",
+    policyLink: "Cookie Policy",
+    privacyLink: "Privacy",
   },
 };

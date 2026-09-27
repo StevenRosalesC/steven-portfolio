@@ -130,5 +130,17 @@ export interface Translations {
     rights: string;
     builtWith: string;
     status: string;
+    privacy: string;
+    cookies: string;
+    cookiePreferences: string;
+  };
+  cookies: {
+    badge: string;
+    title: string;
+    description: string;
+    accept: string;
+    decline: string;
+    policyLink: string;
+    privacyLink: string;
   };
 }

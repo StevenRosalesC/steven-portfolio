@@ -130,5 +130,17 @@ export const es: Translations = {
     rights: "Todos los derechos reservados.",
     builtWith: "Construido con Next.js 16, Tailwind CSS y estética Bento Grid.",
     status: "Sistemas operativos y desplegados",
+    privacy: "Política de Privacidad",
+    cookies: "Política de Cookies",
+    cookiePreferences: "Preferencias de Cookies",
+  },
+  cookies: {
+    badge: "PRIVACIDAD // TELEMETRÍA",
+    title: "Privacidad y Cookies Analíticas",
+    description: "Este portafolio utiliza únicamente telemetría analítica anónima (Google Analytics 4) para medir el rendimiento técnico y mejorar la experiencia. No recopilamos datos personales ni usamos cookies publicitarias.",
+    accept: "Aceptar Analítica",
+    decline: "Rechazar",
+    policyLink: "Política de Cookies",
+    privacyLink: "Privacidad",
   },
 };

@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import { JsonLd } from "@/components/JsonLd";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { CookieConsent } from "@/components/CookieConsent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -122,9 +124,13 @@ export default function RootLayout({
     >
       <head>
         <JsonLd siteUrl={siteUrl} />
+        <GoogleAnalytics />
       </head>
       <body className="min-h-screen bg-[#08090d] text-zinc-100 font-sans selection:bg-violet-500/30 selection:text-white antialiased">
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          {children}
+          <CookieConsent />
+        </LanguageProvider>
       </body>
     </html>
   );
