@@ -1,36 +1,34 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import { Cookie, CheckCircle2, XCircle, RotateCcw } from "lucide-react";
 import { setAnalyticsConsent, getAnalyticsConsentStatus } from "@/components/GoogleAnalytics";
 
+function subscribe(callback: () => void) {
+  window.addEventListener("cookie_consent_change", callback);
+  return () => window.removeEventListener("cookie_consent_change", callback);
+}
+
+function getSnapshot() {
+  return getAnalyticsConsentStatus();
+}
+
+function getServerSnapshot(): "granted" | "denied" | "pending" {
+  return "pending";
+}
+
 export function CookiePreferencesManager() {
-  const [status, setStatus] = useState<"granted" | "denied" | "pending">("pending");
+  const status = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [feedback, setFeedback] = useState<string | null>(null);
-
-  useEffect(() => {
-    setStatus(getAnalyticsConsentStatus());
-
-    const handleUpdate = () => {
-      setStatus(getAnalyticsConsentStatus());
-    };
-
-    window.addEventListener("cookie_consent_change", handleUpdate);
-    return () => {
-      window.removeEventListener("cookie_consent_change", handleUpdate);
-    };
-  }, []);
 
   const handleGrant = () => {
     setAnalyticsConsent(true);
-    setStatus("granted");
     setFeedback("Consentimiento analítico activado correctamente.");
     setTimeout(() => setFeedback(null), 3000);
   };
 
   const handleRevoke = () => {
     setAnalyticsConsent(false);
-    setStatus("denied");
     setFeedback("Consentimiento analítico revocado. Google Analytics desactivado.");
     setTimeout(() => setFeedback(null), 3000);
   };

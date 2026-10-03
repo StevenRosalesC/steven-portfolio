@@ -8,11 +8,9 @@ import { setAnalyticsConsent, getAnalyticsConsentStatus } from "./GoogleAnalytic
 
 export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const { dict } = useLanguage();
 
   useEffect(() => {
-    setMounted(true);
     const status = getAnalyticsConsentStatus();
     // Only display automatically if no decision has been recorded yet
     if (status === "pending") {
@@ -44,7 +42,7 @@ export function CookieConsent() {
     setIsVisible(false);
   };
 
-  if (!mounted || !isVisible) {
+  if (!isVisible) {
     return null;
   }
 
