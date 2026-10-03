@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import { Copy, Check, ArrowRight, Mail, FileText } from "lucide-react";
+import { Copy, Check, Mail, FileText } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 import { SpotlightCard } from "./SpotlightCard";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -155,7 +154,7 @@ console.log("Ready to build something impactful.");`;
               </button>
 
               {portfolioData.personal.cvUrl && (
-                <Link
+                <a
                   href={portfolioData.personal.cvUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -165,7 +164,7 @@ console.log("Ready to build something impactful.");`;
                 >
                   <FileText className="w-3.5 h-3.5 text-violet-400" />
                   <span>$ view --cv</span>
-                </Link>
+                </a>
               )}
             </div>
 
