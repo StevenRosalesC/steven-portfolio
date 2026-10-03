@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { portfolioData, Project } from "@/data/portfolioData";
 
-export const revalidate = 600; // Cache on server for 10 minutes
-
 interface GitHubRawRepo {
   name: string;
   private: boolean;
@@ -23,8 +21,20 @@ interface GitHubCommitItem {
     author?: {
       date?: string;
     };
+    committer?: {
+      date?: string;
+    };
     message?: string;
   };
+}
+
+interface ContributionDay {
+  date: string;
+  contributionCount: number;
+}
+
+interface ContributionWeek {
+  contributionDays?: ContributionDay[];
 }
 
 interface FormattedActivity {
@@ -77,7 +87,7 @@ export async function GET() {
         if (firstPageRes.ok) {
           const firstPageData = await firstPageRes.json();
           const totalSearchCommits = firstPageData.total_count ?? 0;
-          const allItems: any[] = Array.isArray(firstPageData.items)
+          const allItems: GitHubCommitItem[] = Array.isArray(firstPageData.items)
             ? [...firstPageData.items]
             : [];
 
@@ -152,12 +162,12 @@ export async function GET() {
 
         if (gqlRes.ok) {
           const gqlData = await gqlRes.json();
-          const weeks =
+          const weeks: ContributionWeek[] =
             gqlData?.data?.user?.contributionsCollection?.contributionCalendar?.weeks;
           if (Array.isArray(weeks)) {
-            weeks.forEach((w: any) => {
+            weeks.forEach((w: ContributionWeek) => {
               if (Array.isArray(w.contributionDays)) {
-                w.contributionDays.forEach((day: any) => {
+                w.contributionDays.forEach((day: ContributionDay) => {
                   const dt = day.date;
                   const cnt = Number(day.contributionCount) || 0;
                   if (cnt > 0) {
@@ -324,21 +334,28 @@ export async function GET() {
       recentActivity = portfolioData.recentActivity;
     }
 
-    return NextResponse.json({
-      success: true,
-      username,
-      hasToken: Boolean(token),
-      metrics: {
-        totalRepos: totalReposCount > 0 ? totalReposCount : 23,
-        privateRepos: totalReposCount > 0 ? privateReposCount : 11,
-        publicRepos: totalReposCount > 0 ? publicReposCount : 12,
+    return NextResponse.json(
+      {
+        success: true,
+        username,
+        hasToken: Boolean(token),
+        metrics: {
+          totalRepos: totalReposCount > 0 ? totalReposCount : 23,
+          privateRepos: totalReposCount > 0 ? privateReposCount : 11,
+          publicRepos: totalReposCount > 0 ? publicReposCount : 12,
+          totalContributions,
+        },
+        contributions,
         totalContributions,
+        repos: repos.length > 0 ? repos : portfolioData.projects,
+        recentActivity,
       },
-      contributions,
-      totalContributions,
-      repos: repos.length > 0 ? repos : portfolioData.projects,
-      recentActivity,
-    });
+      {
+        headers: {
+          "Cache-Control": "public, s-maxage=600, stale-while-revalidate=1200",
+        },
+      }
+    );
   } catch {
     return NextResponse.json(
       {
