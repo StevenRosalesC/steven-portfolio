@@ -106,7 +106,7 @@ export const projects: Project[] = [
     forks: 0,
     featured: false,
     isPrivate: true,
-    liveUrl: "https://mygymdondesea.stevenrocaiche.space",
+    liveUrl: "https://gymdondesea.stevenrocaiche.space",
     stats: {
       es: "Tracker interactivo en tiempo real",
       en: "Real-time interactive workout tracker",
@@ -134,4 +134,3 @@ export const projects: Project[] = [
     },
   },
 ];
-
