@@ -2,6 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  cacheComponents: true,
+  partialPrefetching: true,
+  poweredByHeader: false,
+  compress: true,
+  typedRoutes: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   async redirects() {
     return [
       {

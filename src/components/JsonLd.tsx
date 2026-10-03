@@ -80,7 +80,7 @@ export function JsonLd({
           "@id": `${siteUrl}/#person`,
         },
         datePublished: "2024-01-01T00:00:00Z",
-        dateModified: new Date().toISOString(),
+        dateModified: "2026-10-02T00:00:00Z",
       },
       {
         "@type": "ItemList",

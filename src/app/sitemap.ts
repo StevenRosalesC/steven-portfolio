@@ -1,7 +1,5 @@
 import type { MetadataRoute } from "next";
 
-export const dynamic = "force-dynamic";
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = (
     process.env.NEXT_PUBLIC_SITE_URL || "https://www.stevenrocaiche.space"
@@ -9,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .trim()
     .replace(/\/+$/, "");
 
-  const lastModified = new Date();
+  const lastModified = new Date("2026-10-02T00:00:00.000Z");
 
   return [
     {
