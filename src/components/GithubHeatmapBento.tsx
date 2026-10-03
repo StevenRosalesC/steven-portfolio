@@ -23,6 +23,7 @@ export function GithubHeatmapBento() {
   const [hoveredCell, setHoveredCell] = useState<{ date: string; count: number } | null>(null);
   const [liveData, setLiveData] = useState<{
     contributions: ContributionDay[] | null;
+    weeks?: ContributionDay[][] | null;
     totalContributions: number;
     recentActivity: ActivityEvent[];
   } | null>(null);
@@ -54,13 +55,15 @@ export function GithubHeatmapBento() {
   const totalWeeks = 26;
   const daysPerWeek = 7;
 
-  // Real or fallback grid data
+  // Real or fallback grid data (weeks already computed on the server)
   const gridCells: ContributionDay[][] = React.useMemo(() => {
+    if (liveData?.weeks && liveData.weeks.length > 0) {
+      return liveData.weeks;
+    }
     if (liveData?.contributions && liveData.contributions.length > 0) {
-      const sliced = liveData.contributions.slice(-182);
       const weeksArr: ContributionDay[][] = [];
-      for (let i = 0; i < sliced.length; i += 7) {
-        weeksArr.push(sliced.slice(i, i + 7));
+      for (let i = 0; i < liveData.contributions.length; i += 7) {
+        weeksArr.push(liveData.contributions.slice(i, i + 7));
       }
       return weeksArr;
     }

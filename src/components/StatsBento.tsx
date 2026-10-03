@@ -20,10 +20,7 @@ export function StatsBento() {
       .then((res) => res.json())
       .then((data) => {
         if (isMounted && data.success && data.metrics) {
-          setMetrics({
-            ...data.metrics,
-            totalContributions: data.metrics.totalContributions || data.totalContributions || 560,
-          });
+          setMetrics(data.metrics);
         }
       })
       .catch((e) => console.warn("Using offline stats", e));

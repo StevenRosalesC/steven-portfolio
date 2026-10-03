@@ -10,33 +10,29 @@ import { useLanguage } from "@/i18n/LanguageContext";
 export function ProjectsBento() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
   const [projectsList, setProjectsList] = useState<Project[]>(portfolioData.projects);
+  const [categories, setCategories] = useState<string[]>(() => [
+    "All",
+    ...Array.from(new Set(portfolioData.projects.map((p) => p.category))),
+  ]);
   const { dict, language } = useLanguage();
 
   useEffect(() => {
     let isMounted = true;
-    fetch("/api/github")
+    const url =
+      activeFilter === "All"
+        ? "/api/github"
+        : `/api/github?category=${encodeURIComponent(activeFilter)}`;
+
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        if (isMounted && data.success && Array.isArray(data.repos)) {
-          // Only enrich projects that are explicitly defined in the curated array
-          setProjectsList((prevList) =>
-            prevList.map((project) => {
-              const match = data.repos.find(
-                (r: { id?: string; title?: string; stars?: number; forks?: number }) =>
-                  r.id?.toLowerCase() === project.id.toLowerCase() ||
-                  r.title?.toLowerCase() === project.id.toLowerCase() ||
-                  (project.githubUrl && project.githubUrl.endsWith(`/${r.id}`))
-              );
-              if (match) {
-                return {
-                  ...project,
-                  stars: match.stars !== undefined ? match.stars : project.stars,
-                  forks: match.forks !== undefined ? match.forks : project.forks,
-                };
-              }
-              return project;
-            })
-          );
+        if (isMounted && data.success) {
+          if (Array.isArray(data.projects)) {
+            setProjectsList(data.projects);
+          }
+          if (Array.isArray(data.categories)) {
+            setCategories(data.categories);
+          }
         }
       })
       .catch((e) => console.warn("Using curated projects list", e));
@@ -44,7 +40,7 @@ export function ProjectsBento() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [activeFilter]);
 
   const getDesc = (desc: string | { es: string; en: string }) => {
     if (typeof desc === "string") return desc;
@@ -72,14 +68,8 @@ export function ProjectsBento() {
     return stats[language] || stats.es || stats.en;
   };
 
-  // Compute unique categories present in the curated projects
-  const rawCategories = Array.from(new Set(portfolioData.projects.map((p) => p.category)));
-  const categories = ["All", ...rawCategories];
-
-  const filteredProjects =
-    activeFilter === "All"
-      ? projectsList
-      : projectsList.filter((p) => p.category === activeFilter);
+  // projectsList is already filtered by the API endpoint
+  const filteredProjects = projectsList;
 
   return (
     <section id="projects" className="py-12">
