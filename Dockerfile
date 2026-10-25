@@ -1,4 +1,4 @@
-FROM node:22-alpine AS base
+FROM node:22.23.4-alpine@sha256:fe4f6d74e20370acb04ad889077d14d0f64a9c8ea6a42bc60cddf1e844699914 AS base
 
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
@@ -29,15 +29,13 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Build arguments received from deployment (EasyPanel / Docker build args)
-ARG GITHUB_TOKEN
 ARG NEXT_PUBLIC_SITE_URL
 ARG NEXT_PUBLIC_CONTACT_EMAIL
 ARG NEXT_PUBLIC_CV_URL
 ARG GIT_SHA
 
 # Environment variables needed at build time by Next.js
-ENV GITHUB_TOKEN=$GITHUB_TOKEN \
-    NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
     NEXT_PUBLIC_CONTACT_EMAIL=$NEXT_PUBLIC_CONTACT_EMAIL \
     NEXT_PUBLIC_CV_URL=$NEXT_PUBLIC_CV_URL \
     GIT_SHA=$GIT_SHA \
